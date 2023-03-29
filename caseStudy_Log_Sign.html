@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="CaseStudy.css">
+
+</head>
+<body onload="allProducts()">
+<p id="showData"></p>
+<div id=""></div>
+<button onclick="showAddProduct()" id="addNewProduct">Add New Product</button>
+<table border="1px" style="display: none" id="tabShow" width="250px" height="140px">
+    <tr>
+        <td>
+            STT<input type="text" id="inputStt">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Name<input type="text" id="inputName">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Price<input type="text" id="inputPrice">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Origin<input type="text" id="inputOrigin">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button onclick="addProduct()">Add Product</button>
+            <button onclick="editProduct()">Edit Product</button>
+        </td>
+    </tr>
+</table>
+</body>
+<script>
+    class Products {
+        stt
+        name
+        price
+        origin
+
+        constructor(stt, name, price, origin) {
+            this.stt = stt
+            this.name = name;
+            this.price = price;
+            this.origin = origin;
+        }
+
+        getStt() {
+            return id;
+        }
+
+        setStt(stt) {
+            this.stt = stt;
+        }
+
+        getName() {
+            return this.name;
+        }
+
+        setName(name) {
+            this.name = name;
+        }
+
+        getPrice() {
+            return this.price;
+        }
+
+        setPrice(price) {
+            this.price = price;
+        }
+
+        getOrigin() {
+            return this.origin;
+        }
+
+        setOrigin(origin) {
+            this.origin = origin;
+        }
+    }
+
+    let product1 = new Products(1, "Cá Vàng", "15.000", "Vietnam");
+    let product2 = new Products(2, "Cá Chép Koi", "50.000", "Vietnam");
+    let product3 = new Products(3, "Cá 7 màu", "10.000", "Vietnam");
+    let product4 = new Products(4, "Cá Dọn Bể", "20.000", "Vietnam");
+    let product5 = new Products(5, "Máy Lọc", "100.000", "China");
+    let product6 = new Products(6, "Máy sủi", "50.000", "China");
+    let products = [product1, product2, product3, product4, product5, product6];
+
+    //     function allProducts() {
+    //         let data = `<table>
+    //         <tr>
+    //         <th>STT</th>
+    //         <th>Sản phẩm</th>
+    //         <th>Giá</th>
+    //         <th>Xuất sứ</th>
+    //         <th colspan="2" style="text-align: center">Action</th>
+    // </tr>`
+    //         for (let i = 0; i < products.length; i++) {
+    //             data += "<tr>"
+    //             data += "<td>" + (i + 1) + "</td>"
+    //             data += "<td>" + products[i].name + "</td>"
+    //             data += "<td>" + products[i].price + "VND" + "</td>"
+    //             data += "<td>" + products[i].origin + "</td>"
+    //             data += "<td><button onclick='showAddProduct(" + i + ")'>Edit</button></td>"
+    //             data += "<td><button onclick='deleteProduct(" + i + ")'>Delete</button></td>"
+    //         }
+    //         data += "</table>"
+    //         document.getElementById("showData").innerHTML = data;
+    //     }
+    //     for (let i = 0; i < products.length; i++) {
+    //         data += "<tr>"
+    //         data += "<td>" + (i + 1) + "</td>"
+    //         data += "<td>" + products[i].name + "</td>"
+    //         data += "<td>" + products[i].price + "VND" + "</td>"
+    //         data += "<td>" + products[i].origin + "</td>"
+    //         data += "<td><button onclick='showAddProduct(" + i + ")'>Edit</button></td>"
+    //         data += "<td><button onclick='deleteProduct(" + i + ")'>Delete</button></td>"
+    //     }
+    function allProducts() {
+        let data = `<table>
+        <tr>
+        <th>STT</th>
+        <th>Sản phẩm</th>
+        <th>Giá</th>
+        <th>Xuất sứ</th>
+        <th colspan="2" style="text-align: center">Action</th>
+</tr>`
+        for (let i = 0; i < products.length; i++) {
+            data += "<tr>"
+            data += "<td>" + (i + 1) + "</td>"
+            data += "<td>" + products[i].name + "</td>"
+            data += "<td>" + products[i].price + "VND" + "</td>"
+            data += "<td>" + products[i].origin + "</td>"
+            data += "<td><button onclick='showAddProduct(" + i + ")'>Edit</button></td>"
+            data += "<td><button onclick='deleteProduct(" + i + ")'>Delete</button></td>"
+        }
+        data += "</table>"
+        document.getElementById("showData").innerHTML = data;
+    }
+    // for (let i = 0; i < products.length; i++) {
+    //     data += "<tr>"
+    //     data += "<td>" + (i + 1) + "</td>"
+    //     data += "<td>" + products[i].name + "</td>"
+    //     data += "<td>" + products[i].price + "VND" + "</td>"
+    //     data += "<td>" + products[i].origin + "</td>"
+    //     data += "<td><button onclick='showAddProduct(" + i + ")'>Edit</button></td>"
+    //     data += "<td><button onclick='deleteProduct(" + i + ")'>Delete</button></td>"
+    // }
+    function showAddProduct() {
+        document.getElementById('tabShow').style.display = "block";
+    }
+    function addInfo() {
+        let stt = document.getElementById("inputStt").value
+        let name = document.getElementById("inputName").value
+        let price = document.getElementById("inputPrice").value
+        let origin = document.getElementById("inputOrigin").value
+        let newProduct = new Products(stt, name, price, origin);
+        return newProduct;
+    }
+
+    function addProduct() {
+        let newProduct = addInfo();
+        products.push(newProduct);
+        allProducts()
+    }
+
+    function editProduct(index) {
+        let newProduct = addInfo();
+        products.splice(index, 1, newProduct);
+        allProducts()
+    }
+
+    // function inputInfo() {
+    //     let stt = prompt("Nhập số id của sản phẩm: ")
+    //     let name = prompt("Nhập tên sản phẩm mới: ")
+    //     let price = prompt("Nhập giá sản phẩm mới: ")
+    //     let origin = prompt("Nhập xuât xứ của sản phẩm: ")
+    //     let newProduct = new Products(stt, name, price, origin);
+    //     return newProduct;
+    // }
+
+    // function addProduct() {
+    //     let newProduct = inputInfo();
+    //     products.push(newProduct);
+    //     allProducts()
+    // }
+
+    // function editProduct(index) {
+    //     let newrPoduct = inputInfo();
+    //     if (editProduct !== "") {
+    //         products[index] = newrPoduct
+    //         allProducts()
+    //     }
+    // }
+    function deleteProduct(index) {
+        if (confirm("Bạn chắc chắn muốn xóa sản phẩm: " + products[index].name + " ?")) {
+            products.splice(index, 1)
+            allProducts()
+        }
+    }
+
+
+</script>
+</html>
